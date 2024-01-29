@@ -1,16 +1,54 @@
 <!DOCTYPE html>
 
 <html>
+
     <head>
         <title>Hello, World</title>
     </head>
-<body>
-    <p>I am tired</p>
+
+    <body>
+
+    I am tired
+
+    <ul>
+        <li>A</li>
+        <li>B</li>
+        <ul>
+            <li>CA</li>
+            <li>CB</li>
+            <li>CC</li>
+        </ul>
+    </ul>
+
     <form id="numberForm">
-        <input type="number" name="number1" placeholder="First number">
+        <input type="number" id="number1" placeholder="First number">
         <input type="number" name="number2" placeholder="Second number">
         <button type="submit">Submit</button>
         
     </form>
-</body>
+
+    <div id="result"></div>
+
+    <script>
+        var message = "Hello there";
+        document.getElementById('result').innerText = message;
+
+        // Waiting for document to load before running script
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // Second listener for clicking submit button
+            document.getElementById('numberForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                var number1 = document.getElementById('number1').value;
+                var message = "Submit was clicked" + number1;
+                document.getElementById('result').innerText = message;
+            });
+
+            var message = "We are ready to go";
+            document.getElementById('result').innerText = message;
+
+        });
+    </script>
+
+    </body>
 </html>
