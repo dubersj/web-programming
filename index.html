@@ -4,6 +4,19 @@
 
     <head>
         <title>Hello, World</title>
+        <style>
+            div {
+                color: blue;
+            }
+            form {
+                padding: 50px;
+                background-color: aqua;
+            }
+         /* # symbol is for element id */
+            #area54 {
+                color: green;
+            }
+        </style
     </head>
 
     <body>
@@ -19,18 +32,28 @@
             <li>CC</li>
         </ul>
     </ul>
+    
+    <div>
+        This is before text
+        <div style="color:red">
+            This is inner text
+        </div>
+        This is after text
+    </div><br/>
+
+    <div id="area54">Test</div>
 
     <form id="numberForm">
         <input type="number" id="number1" placeholder="First number">
-        <input type="number" name="number2" placeholder="Second number">
-        <button type="submit">Submit</button>
+        <input type="number" id="number2" placeholder="Second number">
+        <button id="submit_button" type="submit">Submit</button>
         
     </form>
 
     <div id="result"></div>
 
     <script>
-        var message = "Hello there";
+        var message = "Page is loading";
         document.getElementById('result').innerText = message;
 
         // Waiting for document to load before running script
@@ -38,13 +61,28 @@
 
             // Second listener for clicking submit button
             document.getElementById('numberForm').addEventListener('submit', function(event) {
-                event.preventDefault();
+                event.preventDefault(); //don't post back to server/reloads
                 var number1 = document.getElementById('number1').value;
-                var message = "Submit was clicked" + number1;
+                var number2 = document.getElementById('number2').value;
+
+                if (number1 > number2) {
+                    var message = "First number, (" + number1 + 
+                    "), is greater than second number (" + number2 + ").";
+                } else if (number2 > number1) {
+                    var message = "Second number, (" + number2 + 
+                    "), is greater than first number (" + number1 + ").";
+                } else {
+                    var message = "The numbers are equal.";
+                };
+            
                 document.getElementById('result').innerText = message;
+                document.getElementById('submit_button').disabled = true;
+                document.getElementById('area54').innerHTML = 'You' +
+                    ' have submitted the form.<br/>' +
+                    'I can also put html here.';
             });
 
-            var message = "We are ready to go";
+            var message = "Page is loaded";
             document.getElementById('result').innerText = message;
 
         });
