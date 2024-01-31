@@ -13,8 +13,14 @@
                 background-color: aqua;
             }
          /* # symbol is for element id */
-            #area54 {
-                color: green;
+            #example {
+                color: red;
+            }
+            .colorful {
+                color: magenta;
+            }
+            .weird {
+                font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
             }
         </style>
     </head>
@@ -32,16 +38,35 @@
             <li>CC</li>
         </ul>
     </ul>
-    
-    <div>
-        This is before text
-        <div style="color:red">
-            This is inner text
-        </div>
-        This is after text
-    </div><br/>
 
-    <div id="area54">Test</div>
+    <table>
+        <tr>
+            <td>A</td>
+            <td>
+                <table>
+                <tr><td><img href="" alt="B"></img></td></tr>
+                <tr><td>C</td></tr>
+                <tr><td>D</td></tr>
+                <tr>
+                    <table>
+                        <tr>
+                            <td>E1</td>
+                            <td>E2</td>
+                        </tr>
+                    </table>
+                </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <h1 class="colorful weird">A Bunch of Words</h1>
+    <h1 id="example">A Bunch of Words</h1>
+    <h1>A Bunch of Words</h1>
+
+    <div id="area54">
+        Test
+    </div>
 
     <form id="numberForm">
         <input type="number" id="number1" placeholder="First number">
