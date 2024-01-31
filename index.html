@@ -52,6 +52,10 @@
 
     <div id="result"></div>
 
+    <form id="testForm"><button id="reset_button" type="submit">Reset Other Button Lol</button>
+    </form>
+
+
     <script>
         var message = "Page is loading";
         document.getElementById('result').innerText = message;
@@ -77,6 +81,7 @@
             
                 document.getElementById('result').innerText = message;
                 document.getElementById('submit_button').disabled = true;
+                document.getElementById('reset_button').disabled = false;
                 document.getElementById('area54').innerHTML = 'You' +
                     ' have submitted the form.<br/>' +
                     'I can also put html here.';
@@ -84,6 +89,12 @@
 
             var message = "Page is loaded";
             document.getElementById('result').innerText = message;
+
+            document.getElementById('testForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                document.getElementById('submit_button').disabled = false;
+                document.getElementById('reset_button').disabled = true;
+            });
 
         });
     </script>
