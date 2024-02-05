@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Text</title>
+</head>
+
+<body>
+    <textarea id="myTextArea" rows="4" cols="40"></textarea><br/>
+    <button id="addTextButton">Add Text</button>
+    <button id="showTextButton" onclick="">Show Text</button>
+    <button id="saveNotesButton">Save Notes</button>
+</body>
+
+<script>
+    textarea = document.getElementById("myTextArea");
+
+    addtextbutton = document.getElementById("addTextButton");
+    addtextbutton.addEventListener("click", function() {
+        textarea.value += "...some more text..." + '\n';
+    });
+
+    textbutton = document.getElementById("showTextButton");
+    textbutton.addEventListener("click", function() {
+        alert(textarea.value);
+        //console.log(textarea.value);
+        //console.log("Button was clicked");
+    });
+
+    saveNotesButton = document.getElementById("saveNotesButton");
+    saveNotesButton.addEventListener("click", function() {
+        notes = textarea.value; // adding to javascript engine (out of DOM)
+        localStorage.setItem("notes", notes);
+        alert("Your notes have been stored locally");
+    });
+
+    // on window (load) not item
+    window.addEventListener("load", function() {
+        storedNotes = localStorage.getItem("notes");
+        if (storedNotes) {
+            textarea.value = storedNotes;
+        } else {
+            alert("You had no stored notes, starting blank");
+        }
+    });
+</script>
+
+</html>
