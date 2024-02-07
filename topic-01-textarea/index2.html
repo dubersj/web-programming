@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 5px;
+        }
+        input {
+            margin: auto;
+            font-size: xx-large;
+            width: 100%
+        }
+        button {
+            width: 50px;
+            height: 50px;
+            font-size: x-large;
+        }
+        div {
+            margin: auto;
+            width: 50%;
+            border: 5px solid black;
+            background-color: lightgray;
+            padding: 25px;
+        }
+        table {
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+    <input type="number" id="calcText"></textarea>
+    <table id="mainTable" width="50%">
+        <tr>
+            <td>
+                <button onclick="valuePrint(1)" id="oneBut">1</button>
+            </td>
+            <td>
+                <button onclick="valuePrint(2)" id="twoBut">2</button>
+            </td>
+            <td>
+                <button onclick="valuePrint(3)" id="threeBut">3</button>
+            </td>
+            <td>
+                <button id="addButton">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button onclick="valuePrint(4)" id="fourBut">4</button>
+            </td>
+            <td>
+                <button onclick="valuePrint(5)" id="fiveBut">5</button>
+            </td>
+            <td>
+                <button onclick="valuePrint(6)" id="sixBut">6</button>
+            </td>
+            <td>
+                <button id="subButton">-</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button onclick="valuePrint(7)" id="sevenBut">7</button>
+            </td>
+            <td>
+                <button onclick="valuePrint(8)" id="eightBut">8</button>
+            </td>
+            <td>
+                <button onclick="valuePrint(9)" id="nineBut">9</button>
+            </td>
+            <td>
+                <button id="divButton">/</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button onclick="valuePrint(0)" id="zeroBut">0</button>
+            </td>
+            <td>
+                <button id="equalButton">=</button>
+            </td>
+            <td>
+                <button id="clearButton">C</button>
+            </td>
+            <td>
+                <button id="multButton">*</button>
+            </td>
+        </tr>
+    </table>
+    </div>
+</body>
+
+<script>
+    input = document.getElementById("calcText");
+    addButton = document.getElementById("addButton");
+    subButton = document.getElementById("subButton");
+    divButton = document.getElementById("divButton");
+    multButton = document.getElementById("multButton");
+    equalButton = document.getElementById("equalButton");
+    clearButton = document.getElementById("clearButton");
+
+    function valuePrint(v) {
+        input.value += v;
+    }
+/*
+    oneBut = document.getElementById("oneBut");
+    twoBut = document.getElementById("oneBut");
+    threeBut = document.getElementById("oneBut");
+    fourBut = document.getElementById("oneBut");
+    fiveBut = document.getElementById("oneBut");
+    oneBut = document.getElementById("oneBut");
+    oneBut = document.getElementById("oneBut");
+    oneBut = document.getElementById("oneBut");
+    oneBut = document.getElementById("oneBut");
+    oneBut = document.getElementById("oneBut");*/
+
+    firstVar = 0;
+    operation = 0;
+    // add 1, sub 2, div 3, mult 4
+
+    addButton.addEventListener("click", function() {
+        firstVar = input.value;
+        input.value = "";
+        operation = 1;
+    });
+
+    subButton.addEventListener("click", function() {
+        firstVar = input.value;
+        input.value = "";
+        operation = 2;
+    });
+
+    divButton.addEventListener("click", function() {
+        firstVar = input.value;
+        input.value = "";
+        operation = 3;
+    });
+
+    multButton.addEventListener("click", function() {
+        firstVar = input.value;
+        input.value = "";
+        operation = 4;
+    });
+
+    clearButton.addEventListener("click", function() {
+        firstVar = 0;
+        input.value = "";
+        operation = 0;
+    });
+
+   /* oneBut.addEventListener("click", function() {
+        input.value += 1;
+    });
+
+    twoBut.addEventListener("click", function() {
+        input.value += 2;
+    });
+
+    threeBut.addEventListener("click", function() {
+        input.value += 3;
+    });
+
+    fourBut.addEventListener("click", function() {
+        input.value += 4;
+    });
+
+    fiveBut.addEventListener("click", function() {
+        input.value += 5;
+    });
+
+    sixBut.addEventListener("click", function() {
+        input.value += 6;
+    });
+
+    sevenBut.addEventListener("click", function() {
+        input.value += 7;
+    });
+
+    eightBut.addEventListener("click", function() {
+        input.value += 8;
+    });
+
+    nineBut.addEventListener("click", function() {
+        input.value += 9;
+    });
+
+    zeroBut.addEventListener("click", function() {
+        input.value += 0;
+    });*/
+
+    equalButton.addEventListener("click", function() {
+        if(operation == 1){
+            result = Number(firstVar) + Number(input.value);
+        } else if (operation == 2){
+            result = firstVar - input.value;
+        } else if (operation == 3) {
+            result = firstVar / input.value;
+        } else if (operation == 4) {
+            result = firstVar * input.value;
+        };
+        input.value = result;
+    });
+</script>
+
+</html>
