@@ -31,3 +31,7 @@ def get_status():
         {"name":"meg","status":"lame"}
     ]
     return jsonify(data)
+
+@app.route("/whatever")
+def get_whatever():
+    return f"<p>Whatever, man</p>"
