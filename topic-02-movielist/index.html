@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Movie List</title>
+</head>
+
+<body>
+    <textarea id="textarea"></textarea>
+    <table id="moviesTable" border="1">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Title</th>
+                <th>Year</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- lol -->
+        </tbody>
+    </table>
+    
+    <script>
+        window.onload = function() {
+            textarea = document.getElementById("textarea");
+            textarea.value = "Some value!";
+
+            var xhr = new XMLHttpRequest(); // create xml http request
+            xhr.open('GET', 'classic_sci_fi_movies.json', true); // make request
+            xhr.onreadystatechange = function(event) {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    textarea.value = xhr.responseText;
+                    var movies = JSON.parse(xhr.responseText);
+                    console.log("statechange");
+                }
+                var tableBody = document.getElementById('moviesTable').getElementsByTagName('tbody')[0];
+                movies.forEach(function(movie) {
+                    var row = tableBody.insertRow();
+                    var cell0 = row.insertCell(0);
+                    var cell1 = row.insertCell(1);
+                    var cell2 = row.insertCell(2);
+                    cell1.innerHTML = movie.title;
+                    cell2.innerHTML = movie.year;
+                    cell0.innerHTML = "<button id='movie'>Button</button>";
+                });
+                document.getElementById("movie").addEventListener("click", function(event){
+                    // do something
+                });
+            }
+            console.log("sending");
+            xhr.send(); // do this whole thing
+        }
+    </script>
+</body>
+
+</html>
