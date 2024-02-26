@@ -17,6 +17,10 @@ app = Flask(__name__)
 def serve_static(path):
     return send_from_directory('.', path)
 
+@app.route('/')
+def serve_index():
+    return send_from_directory('.',"index.html")
+
 @app.route("/data/movies/scifi")
 def get_data_movies_scifi():
     #with open("classic_sci_fi_movies.json","r") as f:
