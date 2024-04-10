@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, make_response
 from mongita import MongitaClientDisk
 from bson import ObjectId
 
@@ -10,10 +10,26 @@ client = MongitaClientDisk()
 # open the quotes database
 quotes_db = client.quotes_db
 
+import uuid
+
+#generate a random uuid (guid-like)
+session_key = uuid.uuid4()
+
+print(session_key)
+
 
 @app.route("/", methods=["GET"])
 @app.route("/quotes", methods=["GET"])
 def get_quotes():
+    number_of_visits = int(request.cookies.get("number_of_visits","0"))
+    session_id = request.cookies.get("session_id", None)
+    if not session_id:
+        return("You are not logged in.")
+        # session_id = str(uuid.uuid4())
+    user = request.cookies.get("user", None)
+    
+    #print("NV=",number_of_visits)
+    #print("SI=", session_id)
     # open the quotes collection
     quotes_collection = quotes_db.quotes_collection
     # load the data
@@ -22,16 +38,48 @@ def get_quotes():
         item["_id"] = str(item["_id"])
         item["object"] = ObjectId(item["_id"])
     # display the data
-    return render_template("quotes.html", data=data)
+    html = render_template("quotes.html", data=data, number_of_visits=number_of_visits, session_id=session_id, user=user)
+    response = make_response(html)
+    response.set_cookie("number_of_visits", str(number_of_visits + 1))
+    response.set_cookie("session_id", session_id)
+    return response
+
+@app.route("/login", methods=["GET"])
+def get_login():
+    session_id = request.cookies.get("session_id", None)
+    if session_id:
+        return redirect("/quotes")
+    return render_template("login.html")
+
+@app.route("/login", methods=["POST"])
+def post_login():
+    session_id = str(uuid.uuid4())
+    response = make_response("Logged in.")
+    response.set_cookie("session_id", session_id)
+    user = request.form.get("user", "")
+    response.set_cookie("user", user)
+    return response
+
+@app.route("/logout", methods=["GET"])
+def get_logout():
+    response = make_response("Logged out.")
+    response.delete_cookie("session_id")
+    return response
 
 
 @app.route("/add", methods=["GET"])
 def get_add():
+    session_id = request.cookies.get("session_id", None)
+    if not session_id:
+        return("You are not logged in.")
     return render_template("add_quote.html")
 
 
 @app.route("/add", methods=["POST"])
 def post_add():
+    session_id = request.cookies.get("session_id", None)
+    if not session_id:
+        return("You are not logged in.")
     text = request.form.get("text", "")
     author = request.form.get("author", "")
     if text != "" and author != "":
@@ -46,6 +94,9 @@ def post_add():
 
 @app.route("/edit/<id>", methods=["GET"])
 def get_edit(id=None):
+    session_id = request.cookies.get("session_id", None)
+    if not session_id:
+        return("You are not logged in.")
     if id:
         # open the quotes collection
         quotes_collection = quotes_db.quotes_collection
@@ -59,6 +110,9 @@ def get_edit(id=None):
 
 @app.route("/edit", methods=["POST"])
 def post_edit():
+    session_id = request.cookies.get("session_id", None)
+    if not session_id:
+        return("You are not logged in.")
     _id = request.form.get("_id", None)
     text = request.form.get("text", "")
     author = request.form.get("author", "")
@@ -75,6 +129,9 @@ def post_edit():
 @app.route("/delete", methods=["GET"])
 @app.route("/delete/<id>", methods=["GET"])
 def get_delete(id=None):
+    session_id = request.cookies.get("session_id", None)
+    if not session_id:
+        return("You are not logged in.")
     if id:
         # open the quotes collection
         quotes_collection = quotes_db.quotes_collection
